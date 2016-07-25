@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AlbumCollectionViewCell.h"
 
 @protocol HttpHelperDelegate
 
@@ -22,5 +23,7 @@
 - (instancetype)initWithDelegate:(id<HttpHelperDelegate>)delegate;
 
 - (void)searchAlbums:(NSString *)searchKeyword;
+
+- (void)loadCellImage:(AlbumCollectionViewCell *)cell withUrl:(NSString *)url;
 
 @end

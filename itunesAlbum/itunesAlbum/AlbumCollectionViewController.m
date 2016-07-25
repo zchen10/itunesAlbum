@@ -7,7 +7,9 @@
 //
 
 #import "AlbumCollectionViewController.h"
+#import "AlbumCollectionViewCell.h"
 #import "HttpHelper.h"
+
 
 @interface AlbumCollectionViewController ()<UITextFieldDelegate, HttpHelperDelegate>
 
@@ -27,9 +29,10 @@ static NSString * const reuseIdentifier = @"AlbumCell";
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Register cell classes
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+//    [self.collectionView registerClass:[AlbumCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
     // Do any additional setup after loading the view.
+    self.dataLoader = [[HttpHelper alloc] initWithDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,9 +62,12 @@ static NSString * const reuseIdentifier = @"AlbumCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    AlbumCollectionViewCell *cell =
+        [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    cell.backgroundColor = [UIColor blackColor];
+    NSArray *results = [self.dataLoader.albums objectForKey:@"results"];
+    NSDictionary *celldata = [results objectAtIndex:indexPath.row];
+    [self.dataLoader loadCellImage:cell withUrl:[celldata objectForKey:@"artworkUrl100"]];
     return cell;
 }
 
@@ -106,10 +112,6 @@ static NSString * const reuseIdentifier = @"AlbumCell";
     self.loadingView.frame = textField.bounds;
     [self.loadingView startAnimating];
     
-    // start searching
-    if (!self.dataLoader) {
-        self.dataLoader = [[HttpHelper alloc] initWithDelegate:self];
-    }
     [self.dataLoader searchAlbums:textField.text];
     return YES;
 }

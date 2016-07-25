@@ -57,4 +57,18 @@
     [self.downloadTask resume];
 }
 
+- (void)loadCellImage:(AlbumCollectionViewCell *)cell withUrl:(NSString *)url {
+   NSURLSessionDataTask *task =
+    [[NSURLSession sharedSession] dataTaskWithURL:[NSURL URLWithString:url]
+                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                    if (!error) {
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            [cell.thumbnailImageView setImage:[UIImage imageWithData:data]];
+                                        });
+                                    }
+                                }];
+    [task resume];
+}
+
+
 @end

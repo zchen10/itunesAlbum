@@ -61,8 +61,7 @@ static NSString * const reuseIdentifier = @"AlbumCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    // Configure the cell
-    
+    cell.backgroundColor = [UIColor blackColor];
     return cell;
 }
 
@@ -122,9 +121,9 @@ static NSString * const reuseIdentifier = @"AlbumCell";
     
     if (error) {
         //handle error here.
+    } else {
+        [self.collectionView reloadData];
     }
-    
-    [self.collectionView reloadData];
 }
 
 @end

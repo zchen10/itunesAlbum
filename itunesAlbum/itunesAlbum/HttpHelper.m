@@ -43,17 +43,16 @@
     self.downloadTask =
         [[NSURLSession sharedSession] dataTaskWithURL:[NSURL URLWithString:searchUrl]
                                     completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                        if (error) {
-                                            [self.delegate onResponse:error];
-                                            return;
+                                        if (!error) {
+                                            self.albums = [NSJSONSerialization
+                                                           JSONObjectWithData:data
+                                                           options:kNilOptions
+                                                           error:&error];
                                         }
-                                        NSError* jsonError = nil;
-                                        self.albums = [NSJSONSerialization
-                                                              JSONObjectWithData:data
-                                                              options:kNilOptions 
-                                                              error:&jsonError];
-                                        [self.delegate onResponse:jsonError];
-                                          }];
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            [self.delegate onResponse:error];
+                                        });
+                                        }];
     
     [self.downloadTask resume];
 }

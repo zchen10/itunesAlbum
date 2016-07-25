@@ -7,14 +7,18 @@
 //
 
 #import "AlbumCollectionViewController.h"
+#import "HttpHelper.h"
 
-@interface AlbumCollectionViewController ()
+@interface AlbumCollectionViewController ()<UITextFieldDelegate, HttpHelperDelegate>
+
+@property (nonatomic) UIActivityIndicatorView *loadingView;
+@property (nonatomic) HttpHelper *dataLoader;
 
 @end
 
 @implementation AlbumCollectionViewController
 
-static NSString * const reuseIdentifier = @"Cell";
+static NSString * const reuseIdentifier = @"AlbumCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -46,14 +50,12 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of items
-    return 0;
+    NSInteger count = [[self.dataLoader.albums objectForKey:@"resultCount"] integerValue];
+    return count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -94,5 +96,35 @@ static NSString * const reuseIdentifier = @"Cell";
 	
 }
 */
+
+#pragma mark <UITextFieldDelgate>
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    // show spin wheel
+    if (!self.loadingView) {
+        self.loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    }
+    [textField addSubview:self.loadingView];
+    self.loadingView.frame = textField.bounds;
+    [self.loadingView startAnimating];
+    
+    // start searching
+    if (!self.dataLoader) {
+        self.dataLoader = [[HttpHelper alloc] initWithDelegate:self];
+    }
+    [self.dataLoader searchAlbums:textField.text];
+    return YES;
+}
+
+#pragma mark
+- (void)onResponse:(NSError *)error {
+    [self.loadingView stopAnimating];
+    [self.loadingView removeFromSuperview];
+    
+    if (error) {
+        //handle error here.
+    }
+    
+    [self.collectionView reloadData];
+}
 
 @end

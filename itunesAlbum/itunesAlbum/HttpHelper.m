@@ -8,7 +8,7 @@
 
 #import "HttpHelper.h"
 
-#define SEARCH_TEMPLATE @"https://itunes.apple.com/search?term=%@"
+#define SEARCH_TEMPLATE @"https://itunes.apple.com/search?term="
 
 @interface HttpHelper()<NSURLConnectionDelegate>
 

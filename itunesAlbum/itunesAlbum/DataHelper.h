@@ -1,5 +1,5 @@
 //
-//  HttpHelper.h
+//  DataHelper.h
 //  itunesAlbum
 //
 //  Created by Zhihui CHEN on 7/23/16.
@@ -9,20 +9,20 @@
 #import <Foundation/Foundation.h>
 #import "AlbumCollectionViewCell.h"
 
-@protocol HttpHelperDelegate
+@protocol DataHelperDelegate
 
-- (void)onResponse:(NSError *)error;
+- (void)onAlbumsLoaded:(NSError *)error;
 
 @end
 
 
-@interface HttpHelper : NSObject
+@interface DataHelper : NSObject
 
-@property (nonatomic) NSDictionary *albums;
-
-- (instancetype)initWithDelegate:(id<HttpHelperDelegate>)delegate;
+- (instancetype)initWithDelegate:(id<DataHelperDelegate>)delegate;
 
 - (void)searchAlbums:(NSString *)searchKeyword;
+
+- (NSArray *)loadAlbums;
 
 - (void)loadCellImage:(AlbumCollectionViewCell *)cell withUrl:(NSString *)url;
 

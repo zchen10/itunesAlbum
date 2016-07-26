@@ -8,13 +8,15 @@
 
 #import "AlbumCollectionViewController.h"
 #import "AlbumCollectionViewCell.h"
-#import "HttpHelper.h"
+#import "Album.h"
+#import "DataHelper.h"
 
 
-@interface AlbumCollectionViewController ()<UITextFieldDelegate, HttpHelperDelegate>
+@interface AlbumCollectionViewController ()<UITextFieldDelegate, DataHelperDelegate>
 
 @property (nonatomic) UIActivityIndicatorView *loadingView;
-@property (nonatomic) HttpHelper *dataLoader;
+@property (nonatomic) DataHelper *dataLoader;
+@property NSArray *albums;
 
 @end
 
@@ -32,7 +34,8 @@ static NSString * const reuseIdentifier = @"AlbumCell";
 //    [self.collectionView registerClass:[AlbumCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
     // Do any additional setup after loading the view.
-    self.dataLoader = [[HttpHelper alloc] initWithDelegate:self];
+    self.dataLoader = [[DataHelper alloc] initWithDelegate:self];
+    self.albums = [self.dataLoader loadAlbums];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,17 +60,15 @@ static NSString * const reuseIdentifier = @"AlbumCell";
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    NSInteger count = [[self.dataLoader.albums objectForKey:@"resultCount"] integerValue];
-    return count;
+    return self.albums.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     AlbumCollectionViewCell *cell =
         [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    NSArray *results = [self.dataLoader.albums objectForKey:@"results"];
-    NSDictionary *celldata = [results objectAtIndex:indexPath.row];
-    [self.dataLoader loadCellImage:cell withUrl:[celldata objectForKey:@"artworkUrl100"]];
+    Album *album = [self.albums objectAtIndex:indexPath.row];
+    [self.dataLoader loadCellImage:cell withUrl:album.artworkUrl100];
     return cell;
 }
 
@@ -117,13 +118,14 @@ static NSString * const reuseIdentifier = @"AlbumCell";
 }
 
 #pragma mark
-- (void)onResponse:(NSError *)error {
+- (void)onAlbumsLoaded:(NSError *)error {
     [self.loadingView stopAnimating];
     [self.loadingView removeFromSuperview];
     
     if (error) {
         //handle error here.
     } else {
+        self.albums = [self.dataLoader loadAlbums];
         [self.collectionView reloadData];
     }
 }

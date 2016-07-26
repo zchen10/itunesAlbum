@@ -17,7 +17,8 @@
 		1655C0081D44643800A71E8F /* itunesAlbumTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1655C0071D44643800A71E8F /* itunesAlbumTests.m */; };
 		1655C0131D44643800A71E8F /* itunesAlbumUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1655C0121D44643800A71E8F /* itunesAlbumUITests.m */; };
 		1655C0221D4465DA00A71E8F /* AlbumCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1655C0211D4465DA00A71E8F /* AlbumCollectionViewController.m */; };
-		1655C0251D44662200A71E8F /* HttpHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1655C0241D44662200A71E8F /* HttpHelper.m */; };
+		1655C0251D44662200A71E8F /* DataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1655C0241D44662200A71E8F /* DataHelper.m */; };
+		1673A8821D473D1A0018208F /* Album.m in Sources */ = {isa = PBXBuildFile; fileRef = 1673A8811D473D1A0018208F /* Album.m */; };
 		16F8D3D61D45E23E009ED5F8 /* AlbumCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F8D3D51D45E23E009ED5F8 /* AlbumCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
@@ -58,8 +59,10 @@
 		1655C0141D44643800A71E8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1655C0201D4465DA00A71E8F /* AlbumCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumCollectionViewController.h; sourceTree = "<group>"; };
 		1655C0211D4465DA00A71E8F /* AlbumCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumCollectionViewController.m; sourceTree = "<group>"; };
-		1655C0231D44662200A71E8F /* HttpHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpHelper.h; sourceTree = "<group>"; };
-		1655C0241D44662200A71E8F /* HttpHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpHelper.m; sourceTree = "<group>"; };
+		1655C0231D44662200A71E8F /* DataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataHelper.h; sourceTree = "<group>"; };
+		1655C0241D44662200A71E8F /* DataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataHelper.m; sourceTree = "<group>"; };
+		1673A8801D473D190018208F /* Album.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Album.h; sourceTree = "<group>"; };
+		1673A8811D473D1A0018208F /* Album.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Album.m; sourceTree = "<group>"; };
 		16F8D3D41D45E23E009ED5F8 /* AlbumCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumCollectionViewCell.h; sourceTree = "<group>"; };
 		16F8D3D51D45E23E009ED5F8 /* AlbumCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,6 +115,8 @@
 		1655BFE91D44643700A71E8F /* itunesAlbum */ = {
 			isa = PBXGroup;
 			children = (
+				1673A8801D473D190018208F /* Album.h */,
+				1673A8811D473D1A0018208F /* Album.m */,
 				16F8D3D41D45E23E009ED5F8 /* AlbumCollectionViewCell.h */,
 				16F8D3D51D45E23E009ED5F8 /* AlbumCollectionViewCell.m */,
 				1655C0201D4465DA00A71E8F /* AlbumCollectionViewController.h */,
@@ -119,8 +124,8 @@
 				1655BFED1D44643700A71E8F /* AppDelegate.h */,
 				1655BFEE1D44643700A71E8F /* AppDelegate.m */,
 				1655BFF91D44643800A71E8F /* Assets.xcassets */,
-				1655C0231D44662200A71E8F /* HttpHelper.h */,
-				1655C0241D44662200A71E8F /* HttpHelper.m */,
+				1655C0231D44662200A71E8F /* DataHelper.h */,
+				1655C0241D44662200A71E8F /* DataHelper.m */,
 				1655BFFE1D44643800A71E8F /* Info.plist */,
 				1655BFF61D44643800A71E8F /* itunesAlbum.xcdatamodeld */,
 				1655BFFB1D44643800A71E8F /* LaunchScreen.storyboard */,
@@ -289,8 +294,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1655BFF21D44643700A71E8F /* ViewController.m in Sources */,
-				1655C0251D44662200A71E8F /* HttpHelper.m in Sources */,
+				1655C0251D44662200A71E8F /* DataHelper.m in Sources */,
 				1655C0221D4465DA00A71E8F /* AlbumCollectionViewController.m in Sources */,
+				1673A8821D473D1A0018208F /* Album.m in Sources */,
 				1655BFF81D44643800A71E8F /* itunesAlbum.xcdatamodeld in Sources */,
 				16F8D3D61D45E23E009ED5F8 /* AlbumCollectionViewCell.m in Sources */,
 				1655BFEF1D44643700A71E8F /* AppDelegate.m in Sources */,

@@ -7,6 +7,8 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "DataHelper.h"
+#import "AppDelegate.h"
 
 @interface itunesAlbumTests : XCTestCase
 
@@ -24,9 +26,30 @@
     [super tearDown];
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
+- (void)testFormApi {
+    NSString *key = @"aaa bbb";
+    int limit = 20;
+    NSString *api = [DataHelper formSearchApi:key limit:limit];
+    
+    XCTAssertTrue([api isEqualToString:@"https://itunes.apple.com/search?term=aaa+bbb&limi=20"]);
+    
+    key = @"a   b cd";
+    limit = 100;
+    api = [DataHelper formSearchApi:key limit:limit];
+    XCTAssertTrue([api isEqualToString:@"https://itunes.apple.com/search?term=a+b+cd&limi=100"]);
+}
+
+- (void)testLoadAlbum {
+    DataHelper *dataHelper = [[DataHelper alloc] initWithDelegate:nil];
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    [NSEntityDescription insertNewObjectForEntityForName:@"Album" inManagedObjectContext:appDelegate.managedObjectContext];
+    
+    NSArray *albums = [dataHelper loadAlbums];
+    XCTAssertTrue(albums.count == 1);
+    
+    [dataHelper cleanAlbums];
+    albums = [dataHelper loadAlbums];
+    XCTAssertTrue(albums.count == 0);
 }
 
 - (void)testPerformanceExample {

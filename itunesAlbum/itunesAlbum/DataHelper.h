@@ -22,8 +22,12 @@
 
 - (void)searchAlbums:(NSString *)searchKeyword;
 
+- (void)cleanAlbums;
+
 - (NSArray *)loadAlbums;
 
 - (void)loadCellImage:(AlbumCollectionViewCell *)cell withUrl:(NSString *)url;
+
++ (NSString *)formSearchApi:(NSString *)searchKeyword limit:(int)limit;
 
 @end

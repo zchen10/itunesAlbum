@@ -10,9 +10,10 @@
 #import "AppDelegate.h"
 #import "Album.h"
 
-#define SEARCH_TEMPLATE @"https://itunes.apple.com/search?limit=20&term="
+#define SEARCH_TEMPLATE @"https://itunes.apple.com/search?term=%@&limi=%d"
 #define ALBUM_ENTITY @"Album"
 #define RESULTS_KEY @"results"
+#define SEARCH_LIMIT 100
 
 @interface DataHelper()<NSURLConnectionDelegate>
 
@@ -32,20 +33,15 @@
 }
 
 - (void)searchAlbums:(NSString *)searchKeyword {
+    [self cleanAlbums];
+    
     if (self.downloadTask) {
         [self.downloadTask cancel];
         self.downloadTask = nil;
     }
     
-    [self cleanAlbums];
-    NSString *escapedWord =
-        [searchKeyword stringByReplacingOccurrencesOfString:@" +"
-                                                 withString:@"+"
-                                                    options:NSRegularExpressionSearch
-                                                      range:NSMakeRange(0, searchKeyword.length)];
-    NSString *searchUrl = [SEARCH_TEMPLATE stringByAppendingString:escapedWord];
-    NSLog(@"Search url is %@", searchUrl);
-
+    NSString *searchUrl = [DataHelper formSearchApi:searchKeyword limit:SEARCH_LIMIT];
+   
     self.downloadTask =
         [[NSURLSession sharedSession] dataTaskWithURL:[NSURL URLWithString:searchUrl]
                                     completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -78,13 +74,8 @@
 }
 
 - (void)cleanAlbums {
-    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:ALBUM_ENTITY];
-    NSBatchDeleteRequest *delete = [[NSBatchDeleteRequest alloc] initWithFetchRequest:request];
-    
-    NSError *deleteError = nil;
     NSManagedObjectContext *context = self.appDelegate.managedObjectContext;
-    [self.appDelegate.persistentStoreCoordinator executeRequest:delete withContext:context error:&deleteError];
-
+    [context reset];
 }
 
 - (void)saveAlbums:(NSDictionary *)json {
@@ -106,6 +97,15 @@
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:ALBUM_ENTITY];
     NSError *error = nil;
     return [self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+}
+
++ (NSString *)formSearchApi:(NSString *)searchKeyword limit:(int)limit {
+    searchKeyword =
+    [searchKeyword stringByReplacingOccurrencesOfString:@" +"
+                                             withString:@"+"
+                                                options:NSRegularExpressionSearch
+                                                  range:NSMakeRange(0, searchKeyword.length)];
+    return [NSString stringWithFormat:SEARCH_TEMPLATE, searchKeyword, limit];
 }
 
 @end

@@ -113,6 +113,8 @@ static NSString * const reuseIdentifier = @"AlbumCell";
     self.loadingView.frame = textField.bounds;
     [self.loadingView startAnimating];
     
+    self.albums = nil;
+    [self.collectionView reloadData];
     [self.dataLoader searchAlbums:textField.text];
     return YES;
 }

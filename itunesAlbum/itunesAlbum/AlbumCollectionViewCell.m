@@ -7,7 +7,17 @@
 //
 
 #import "AlbumCollectionViewCell.h"
+#import "Thumbnail.h"
 
 @implementation AlbumCollectionViewCell
+
+- (void)populateCellWithThumbnail:(Thumbnail *)thumbnail {
+    if (thumbnail.data) {
+        UIImage *image = [UIImage imageWithData:thumbnail.data];
+        [self.thumbnailImageView setImage:image];
+    } else {
+        // add KVO.
+    }
+}
 
 @end

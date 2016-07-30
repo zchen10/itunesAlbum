@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class Thumbnail;
+
 @interface AlbumCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic, retain) IBOutlet UIImageView *thumbnailImageView;
+
+- (void)populateCellWithThumbnail:(Thumbnail *)thumbnail;
 
 @end

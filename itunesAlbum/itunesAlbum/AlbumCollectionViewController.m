@@ -16,7 +16,6 @@
 
 @property (nonatomic) UIActivityIndicatorView *loadingView;
 @property (nonatomic) DataHelper *dataLoader;
-@property NSArray *albums;
 
 @end
 
@@ -35,7 +34,6 @@ static NSString * const reuseIdentifier = @"AlbumCell";
     
     // Do any additional setup after loading the view.
     self.dataLoader = [[DataHelper alloc] initWithDelegate:self];
-    self.albums = [self.dataLoader loadAlbums];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,15 +58,17 @@ static NSString * const reuseIdentifier = @"AlbumCell";
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.albums.count;
+    return self.dataLoader.albums.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     AlbumCollectionViewCell *cell =
         [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    Album *album = [self.albums objectAtIndex:indexPath.row];
-    [self.dataLoader loadCellImage:cell withUrl:album.artworkUrl100];
+    Album *album = [self.dataLoader.albums objectAtIndex:indexPath.row];
+    Thumbnail *thumbnail = [self.dataLoader thumbnailByAlbum:album];
+    [cell populateCellWithThumbnail:thumbnail];
+    [self.dataLoader preloadIfNecessary:indexPath.row];
     return cell;
 }
 
@@ -113,7 +113,6 @@ static NSString * const reuseIdentifier = @"AlbumCell";
     self.loadingView.frame = textField.bounds;
     [self.loadingView startAnimating];
     
-    self.albums = nil;
     [self.collectionView reloadData];
     [self.dataLoader searchAlbums:textField.text];
     return YES;
@@ -127,7 +126,6 @@ static NSString * const reuseIdentifier = @"AlbumCell";
     if (error) {
         //handle error here.
     } else {
-        self.albums = [self.dataLoader loadAlbums];
         [self.collectionView reloadData];
     }
 }

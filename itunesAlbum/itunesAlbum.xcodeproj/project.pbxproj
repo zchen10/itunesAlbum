@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		163D12711D4C77650088ACC9 /* Thumbnail.m in Sources */ = {isa = PBXBuildFile; fileRef = 163D12701D4C77650088ACC9 /* Thumbnail.m */; };
 		1655BFEC1D44643700A71E8F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1655BFEB1D44643700A71E8F /* main.m */; };
 		1655BFEF1D44643700A71E8F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1655BFEE1D44643700A71E8F /* AppDelegate.m */; };
 		1655BFF21D44643700A71E8F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1655BFF11D44643700A71E8F /* ViewController.m */; };
@@ -40,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		163D126F1D4C77650088ACC9 /* Thumbnail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thumbnail.h; sourceTree = "<group>"; };
+		163D12701D4C77650088ACC9 /* Thumbnail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Thumbnail.m; sourceTree = "<group>"; };
 		1655BFE71D44643700A71E8F /* itunesAlbum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = itunesAlbum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1655BFEB1D44643700A71E8F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1655BFED1D44643700A71E8F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -131,6 +134,8 @@
 				1655BFFB1D44643800A71E8F /* LaunchScreen.storyboard */,
 				1655BFF31D44643800A71E8F /* Main.storyboard */,
 				1655BFEA1D44643700A71E8F /* Supporting Files */,
+				163D126F1D4C77650088ACC9 /* Thumbnail.h */,
+				163D12701D4C77650088ACC9 /* Thumbnail.m */,
 				1655BFF01D44643700A71E8F /* ViewController.h */,
 				1655BFF11D44643700A71E8F /* ViewController.m */,
 			);
@@ -298,6 +303,7 @@
 				1655C0221D4465DA00A71E8F /* AlbumCollectionViewController.m in Sources */,
 				1673A8821D473D1A0018208F /* Album.m in Sources */,
 				1655BFF81D44643800A71E8F /* itunesAlbum.xcdatamodeld in Sources */,
+				163D12711D4C77650088ACC9 /* Thumbnail.m in Sources */,
 				16F8D3D61D45E23E009ED5F8 /* AlbumCollectionViewCell.m in Sources */,
 				1655BFEF1D44643700A71E8F /* AppDelegate.m in Sources */,
 				1655BFEC1D44643700A71E8F /* main.m in Sources */,

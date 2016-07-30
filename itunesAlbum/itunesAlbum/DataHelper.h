@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "AlbumCollectionViewCell.h"
 
+@class Album;
+@class Thumbnail;
+
 @protocol DataHelperDelegate
 
 - (void)onAlbumsLoaded:(NSError *)error;
@@ -18,15 +21,17 @@
 
 @interface DataHelper : NSObject
 
+@property (nonatomic, readonly) NSArray<Album *> *albums;
+
 - (instancetype)initWithDelegate:(id<DataHelperDelegate>)delegate;
 
 - (void)searchAlbums:(NSString *)searchKeyword;
 
 - (void)cleanAlbums;
 
-- (NSArray *)loadAlbums;
+- (void)preloadIfNecessary:(int)row;
 
-- (void)loadCellImage:(AlbumCollectionViewCell *)cell withUrl:(NSString *)url;
+- (Thumbnail *)thumbnailByAlbum:(Album *)album;
 
 + (NSString *)formSearchApi:(NSString *)searchKeyword limit:(int)limit;
 

@@ -13,7 +13,12 @@
         <attribute name="trackTimeMillis" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="wrapperType" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Thumbnail" syncable="YES">
+        <attribute name="artworkUrl100" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
+    </entity>
     <elements>
         <element name="Album" positionX="-63" positionY="-18" width="128" height="210"/>
+        <element name="Thumbnail" positionX="-63" positionY="63" width="128" height="75"/>
     </elements>
 </model>

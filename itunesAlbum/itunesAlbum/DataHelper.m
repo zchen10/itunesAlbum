@@ -77,6 +77,7 @@
 
 - (void)cleanAlbums {
     _albums = nil;
+    [self.cachedThumbnails removeAllObjects];
     NSManagedObjectContext *context = self.appDelegate.managedObjectContext;
     [context reset];
 }
